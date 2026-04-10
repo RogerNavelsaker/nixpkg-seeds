@@ -1,0 +1,24 @@
+{
+  "stubbed": false,
+  "package": {
+    "repo": "seeds-cli",
+    "npmName": "@os-eco/seeds-cli",
+    "version": "0.2.5",
+    "packageRevision": 2,
+    "sourceRev": "2050941f2ab8f4f68929e1c688b0669d57cac855",
+    "sourceHash": "sha256-8HW+rAoId/t9O8wD+LcrWk0tgxjl5peSBOffwCFyhgM="
+  },
+  "binary": {
+    "name": "seeds",
+    "upstreamName": "sd",
+    "entrypoint": "./src/index.ts",
+    "aliases": [
+      "sd"
+    ]
+  },
+  "meta": {
+    "description": "Git-native issue tracker for AI agent workflows",
+    "homepage": "https://github.com/RogerNavelsaker/seeds/tree/dogfood",
+    "licenseSpdx": "MIT"
+  }
+}
