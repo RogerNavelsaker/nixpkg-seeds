@@ -35,6 +35,9 @@ jobs:
           SEEDS_SOURCE_BRANCH: dogfood
         run: bun run sync:github-source
 
+      - name: Install Bun dependencies and regenerate bun.nix
+        run: bun install
+
       - name: Detect source revision
         id: version
         run: |

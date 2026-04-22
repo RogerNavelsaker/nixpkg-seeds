@@ -6,21 +6,13 @@ const sourceHomepage = `https://github.com/${sourceOwner}/${sourceName}/tree/${s
 const sourceIssues = `https://github.com/${sourceOwner}/${sourceName}/issues`;
 const manifestPath = "nix/package-manifest.json";
 const packageJsonPath = "package.json";
-const bunLockPath = "bun.lock";
-const bunNixPath = "bun.nix";
 
 async function run(command: string[], cwd?: string) {
-  const proc = Bun.spawn(command, {
-    cwd,
-    stdout: "pipe",
-    stderr: "pipe",
-  });
+  const proc = Bun.spawn(command, { cwd, stdout: "pipe", stderr: "pipe" });
   const stdout = await new Response(proc.stdout).text();
   const stderr = await new Response(proc.stderr).text();
   const exitCode = await proc.exited;
-  if (exitCode !== 0) {
-    throw new Error(`${command.join(" ")} failed with ${exitCode}\n${stderr}`);
-  }
+  if (exitCode !== 0) throw new Error(`${command.join(" ")} failed with ${exitCode}\n${stderr}`);
   return stdout.trim();
 }
 
@@ -31,12 +23,9 @@ function nextPackageRevision(
   nextVersion: string,
   nextSourceRev: string,
 ) {
-  if (currentVersion !== nextVersion) {
-    return 1;
-  }
-  if (!currentSourceRev || currentSourceRev !== nextSourceRev) {
+  if (currentVersion !== nextVersion) return 1;
+  if (!currentSourceRev || currentSourceRev !== nextSourceRev)
     return Math.max(currentRevision ?? 0, 0) + 1;
-  }
   return currentRevision ?? 1;
 }
 
@@ -51,24 +40,16 @@ try {
   const sourceRev = await run(["git", "rev-parse", "HEAD"], tempDir);
   const binEntries = Object.entries(sourcePackageJson.bin ?? {});
 
-  if (binEntries.length === 0) {
+  if (binEntries.length === 0)
     throw new Error(`No bin entry found in ${sourceOwner}/${sourceName}@${sourceBranch}`);
-  }
 
-  const [binName, entrypoint] = binEntries[0];
+  const [binName, entrypoint] = binEntries[0] as [string, string];
   const prefetchHash = await run([
     "nix-prefetch-url",
     "--unpack",
     `https://github.com/${sourceOwner}/${sourceName}/archive/${sourceRev}.tar.gz`,
   ]);
-  const sourceHash = await run([
-    "nix",
-    "hash",
-    "to-sri",
-    "--type",
-    "sha256",
-    prefetchHash.split("\n")[0],
-  ]);
+  const sourceHash = await run(["nix", "hash", "to-sri", "--type", "sha256", prefetchHash.split("\n")[0]]);
 
   manifest.stubbed = false;
   manifest.package.packageRevision = nextPackageRevision(
@@ -84,40 +65,41 @@ try {
   manifest.binary.upstreamName = binName;
   manifest.binary.entrypoint = entrypoint;
   delete manifest.dist;
+  delete manifest.deps;
   manifest.meta.description = sourcePackageJson.description ?? manifest.meta.description;
   manifest.meta.homepage = sourceHomepage;
   manifest.meta.licenseSpdx = sourcePackageJson.license ?? manifest.meta.licenseSpdx ?? "unfree";
-
-  await Bun.write(bunLockPath, await Bun.file(`${tempDir}/bun.lock`).text());
-  await run(["bun", "x", "bun2nix", "--lock-file", bunLockPath, "--output-file", bunNixPath]);
 
   packageJson.name = sourcePackageJson.name ?? manifest.package.npmName;
   packageJson.version = sourcePackageJson.version;
   packageJson.description = sourcePackageJson.description ?? packageJson.description;
   packageJson.license = sourcePackageJson.license ?? packageJson.license;
   packageJson.type = sourcePackageJson.type ?? packageJson.type ?? "module";
-  packageJson.repository = {
-    type: "git",
-    url: sourceRepo,
-  };
+  packageJson.repository = { type: "git", url: sourceRepo };
   packageJson.homepage = sourceHomepage;
-  packageJson.bugs = {
-    url: sourceIssues,
-  };
+  packageJson.bugs = { url: sourceIssues };
   packageJson.keywords = sourcePackageJson.keywords ?? [];
   packageJson.bin = sourcePackageJson.bin ?? {};
   packageJson.engines = sourcePackageJson.engines ?? {};
   packageJson.scripts = {
     "show-manifest": "bun --eval \"console.log(await Bun.file('nix/package-manifest.json').text())\"",
-    "sync:bun-deps": "bun x bun2nix --lock-file bun.lock --output-file bun.nix",
     "sync:source": "bun run sync:github-source",
     "sync:manifest": "bun run sync:github-source",
     "sync:github-source": "bun run scripts/sync-from-github.ts",
     "sync:npm-source": "bun run scripts/sync-from-npm.ts",
+    "postinstall": "bun x bun2nix -o bun.nix",
   };
   packageJson.dependencies = sourcePackageJson.dependencies ?? {};
-  packageJson.devDependencies = {};
+  packageJson.devDependencies = {
+    "@types/bun": packageJson.devDependencies?.["@types/bun"] ?? "^1.3.10",
+    "bun2nix": "2.0.8",
+  };
   delete packageJson.private;
+
+  const sourceBunLock = Bun.file(`${tempDir}/bun.lock`);
+  if (await sourceBunLock.exists()) {
+    await Bun.write("bun.lock", await sourceBunLock.text());
+  }
 
   await Bun.write(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
   await Bun.write(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);

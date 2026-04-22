@@ -4,17 +4,20 @@
   "packageManager": "bun@1.3.10",
   "scripts": {
     "show-manifest": "bun --eval \"console.log(await Bun.file('nix/package-manifest.json').text())\"",
-    "sync:bun-deps": "bun x bun2nix --lock-file bun.lock --output-file bun.nix",
     "sync:source": "bun run sync:github-source",
     "sync:manifest": "bun run sync:github-source",
     "sync:github-source": "bun run scripts/sync-from-github.ts",
-    "sync:npm-source": "bun run scripts/sync-from-npm.ts"
+    "sync:npm-source": "bun run scripts/sync-from-npm.ts",
+    "postinstall": "bun x bun2nix -o bun.nix"
   },
   "dependencies": {
     "chalk": "^5.6.2",
     "commander": "^14.0.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "@types/bun": "^1.3.10",
+    "bun2nix": "2.0.8"
+  },
   "version": "0.2.5",
   "description": "Git-native issue tracker for AI agent workflows",
   "license": "MIT",
