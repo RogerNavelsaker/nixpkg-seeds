@@ -4,9 +4,9 @@
     "repo": "seeds-cli",
     "npmName": "@os-eco/seeds-cli",
     "version": "0.2.5",
-    "packageRevision": 4,
-    "sourceRev": "716de0b077744fd951fcb7c754058570d79a55f6",
-    "sourceHash": "sha256-8HW+rAoId/t9O8wD+LcrWk0tgxjl5peSBOffwCFyhgM="
+    "packageRevision": 5,
+    "sourceRev": "1020566cbba80a176fa476f5800c7c0147d7eda0",
+    "sourceHash": "sha256-71pjKDGP+GkQsKiIdzQ1t+Lxl8D/4sR6ChLI/cXBIqY="
   },
   "binary": {
     "name": "seeds",

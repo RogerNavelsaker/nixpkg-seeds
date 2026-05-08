@@ -91,6 +91,7 @@ try {
   };
   packageJson.dependencies = sourcePackageJson.dependencies ?? {};
   packageJson.devDependencies = {
+    ...sourcePackageJson.devDependencies,
     "@types/bun": packageJson.devDependencies?.["@types/bun"] ?? "^1.3.10",
     "bun2nix": "2.0.8",
   };

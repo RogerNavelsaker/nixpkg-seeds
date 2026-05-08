@@ -44,8 +44,9 @@ EOF
     bunCompileToBytecode = false;
     nativeBuildInputs = [ installShellFiles ];
     postPatch = ''
+      cp ${../package.json} package.json
       cp ${../bun.lock} bun.lock
-      chmod u+w bun.lock
+      chmod u+w bun.lock package.json
     '';
     postInstall = ''
       mkdir -p "$out/libexec"
