@@ -49,7 +49,7 @@ jobs:
       - name: Check if source revision tag exists
         id: tag
         run: |
-          if git rev-parse "refs/tags/src-${{ steps.version.outputs.rev }}" >/dev/null 2>&1; then
+          if git ls-remote --exit-code --tags origin "refs/tags/src-${{ steps.version.outputs.rev }}" >/dev/null 2>&1; then
             echo "exists=true" >> "$GITHUB_OUTPUT"
           else
             echo "exists=false" >> "$GITHUB_OUTPUT"
