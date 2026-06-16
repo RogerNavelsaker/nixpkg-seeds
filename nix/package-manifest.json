@@ -3,7 +3,7 @@
   "package": {
     "repo": "seeds-cli",
     "npmName": "@os-eco/seeds-cli",
-    "version": "0.5.11",
+    "version": "0.5.12",
     "packageRevision": 1,
     "sourceRev": "e26e71c1f63dd5ba349e366e0974a35c679f1798",
     "sourceHash": "sha256-Q4L1cDSjULYw7O+HDdx8szGcjZb+z4sF/wgZyacAjF4="
@@ -22,7 +22,7 @@
     "licenseSpdx": "MIT"
   },
   "dist": {
-    "url": "https://registry.npmjs.org/@os-eco/seeds-cli/-/seeds-cli-0.5.11.tgz",
-    "hash": "sha512-3EpATjVQKSOUkno8TeYxzYu1wS0ZsvBwm8LMw9a2ohS2DWVWzSjMM2FYXskpqvrsxZmX0rVxh7jp1hHKUV6xdA=="
+    "url": "https://registry.npmjs.org/@os-eco/seeds-cli/-/seeds-cli-0.5.12.tgz",
+    "hash": "sha512-Pn2bUnCFOA9cvnbSvtG2aqOORwo9YvpMND57AP60wns+F0b1bjI/dh0xWUm81rjPgjFRn6SY+6gavg4AFe8hVA=="
   }
 }
