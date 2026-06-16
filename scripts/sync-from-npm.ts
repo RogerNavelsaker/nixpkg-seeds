@@ -1,3 +1,3 @@
 throw new Error(
-  "npm sync is intentionally disabled while nixpkg-seeds follows RogerNavelsaker/seeds dogfood. Use `bun run sync:github-source`.",
+  "npm sync is intentionally disabled while nixpkg-seeds follows jayminwest/seeds. Use `bun run sync:github-source`.",
 );

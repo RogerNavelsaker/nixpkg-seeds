@@ -27,7 +27,7 @@ EOF
     ''
   ) aliasOutputs;
   src = fetchFromGitHub {
-    owner = "RogerNavelsaker";
+    owner = "jayminwest";
     repo = "seeds";
     rev = manifest.package.sourceRev;
     hash = manifest.package.sourceHash;

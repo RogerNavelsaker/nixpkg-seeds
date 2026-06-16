@@ -1,7 +1,7 @@
-const sourceRepo = Bun.env.SEEDS_SOURCE_REPO_URL ?? "https://github.com/RogerNavelsaker/seeds.git";
-const sourceOwner = Bun.env.SEEDS_SOURCE_OWNER ?? "RogerNavelsaker";
+const sourceRepo = Bun.env.SEEDS_SOURCE_REPO_URL ?? "https://github.com/jayminwest/seeds.git";
+const sourceOwner = Bun.env.SEEDS_SOURCE_OWNER ?? "jayminwest";
 const sourceName = Bun.env.SEEDS_SOURCE_REPO ?? "seeds";
-const sourceBranch = Bun.env.SEEDS_SOURCE_BRANCH ?? "dogfood";
+const sourceBranch = Bun.env.SEEDS_SOURCE_BRANCH ?? "main";
 const sourceHomepage = `https://github.com/${sourceOwner}/${sourceName}/tree/${sourceBranch}`;
 const sourceIssues = `https://github.com/${sourceOwner}/${sourceName}/issues`;
 const manifestPath = "nix/package-manifest.json";
