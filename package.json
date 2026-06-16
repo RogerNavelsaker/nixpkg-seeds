@@ -4,8 +4,8 @@
   "packageManager": "bun@1.3.10",
   "scripts": {
     "show-manifest": "bun --eval \"console.log(await Bun.file('nix/package-manifest.json').text())\"",
-    "sync:source": "bun run sync:github-source",
-    "sync:manifest": "bun run sync:github-source",
+    "sync:source": "bun run sync:npm-source",
+    "sync:manifest": "bun run sync:npm-source",
     "sync:github-source": "bun run scripts/sync-from-github.ts",
     "sync:npm-source": "bun run scripts/sync-from-npm.ts",
     "postinstall": "bun x bun2nix -o bun.nix"
@@ -13,7 +13,8 @@
   "dependencies": {
     "ajv": "^8",
     "chalk": "^5.6.2",
-    "commander": "^14.0.3"
+    "commander": "^14.0.3",
+    "@os-eco/seeds-cli": "0.5.11"
   },
   "devDependencies": {
     "@biomejs/biome": "^2.4.6",

@@ -1,4 +1,4 @@
-{ bash, bun2nix, fetchFromGitHub, installShellFiles, lib, symlinkJoin }:
+{ bash, bun2nix, installShellFiles, lib, symlinkJoin }:
 
 let
   manifest = builtins.fromJSON (builtins.readFile ./package-manifest.json);
@@ -26,11 +26,12 @@ EOF
       chmod +x "${"$" + alias}/bin/${alias}"
     ''
   ) aliasOutputs;
-  src = fetchFromGitHub {
-    owner = "jayminwest";
-    repo = "seeds";
-    rev = manifest.package.sourceRev;
-    hash = manifest.package.sourceHash;
+  src = lib.fileset.toSource {
+    root = ../.;
+    fileset = lib.fileset.unions [
+      ../package.json
+      ../bun.lock
+    ];
   };
   bunDeps = bun2nix.fetchBunDeps {
     bunNix = ../bun.nix;
@@ -39,15 +40,10 @@ EOF
     pname = manifest.binary.name;
     version = packageVersion;
     inherit src bunDeps;
-    module = manifest.binary.entrypoint;
+    module = "node_modules/${manifest.package.npmName}/${manifest.binary.entrypoint}";
     bunInstallFlags = "--linker=isolated --frozen-lockfile";
     bunCompileToBytecode = false;
     nativeBuildInputs = [ installShellFiles ];
-    postPatch = ''
-      cp ${../package.json} package.json
-      cp ${../bun.lock} bun.lock
-      chmod u+w bun.lock package.json
-    '';
     postInstall = ''
       mkdir -p "$out/libexec"
       mv "$out/bin/${manifest.binary.name}" "$out/libexec/${manifest.binary.name}"
