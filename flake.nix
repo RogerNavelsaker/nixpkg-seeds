@@ -42,10 +42,12 @@
       });
 
       devShells = forAllSystems ({ pkgs }: {
-        default = pkgs.mkShell {
+        default = let
+          bun2nixPackage = bun2nix.packages.${pkgs.system}.default;
+        in pkgs.mkShell {
           packages = with pkgs; [
             bun
-            bun2nix
+            bun2nixPackage
             jq
             nixfmt-rfc-style
           ];
