@@ -65,9 +65,9 @@
     url = "https://registry.npmjs.org/@napi-rs/wasm-runtime/-/wasm-runtime-1.1.4.tgz";
     hash = "sha512-3NQNNgA1YSlJb/kMH1ildASP9HW7/7kYnRI2szWJaofaS1hWmbGI4H+d3+22aGzXXN9IJ+n+GiFVcGipJP18ow==";
   };
-  "@os-eco/seeds-cli@0.6.0" = fetchurl {
-    url = "https://registry.npmjs.org/@os-eco/seeds-cli/-/seeds-cli-0.6.0.tgz";
-    hash = "sha512-TcuU4wQJLUHz0+OcDE1VPyJwimNNcCpeqGbRXl/bkkEg1LbTXBfHI51PLhfOlV01cyPtxTs9mZNxyC+/rEZ1fg==";
+  "@os-eco/seeds-cli@0.7.0" = fetchurl {
+    url = "https://registry.npmjs.org/@os-eco/seeds-cli/-/seeds-cli-0.7.0.tgz";
+    hash = "sha512-xoaCZrhxeb7zKufa8/jpWjxBJEQXl/JdABxpXZO/00XK0MuDo+4gcBQXPj4EWztQrk41B1cuWE23W8CIuqCTTw==";
   };
   "@oxc-parser/binding-android-arm-eabi@0.130.0" = fetchurl {
     url = "https://registry.npmjs.org/@oxc-parser/binding-android-arm-eabi/-/binding-android-arm-eabi-0.130.0.tgz";
