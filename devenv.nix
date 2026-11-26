@@ -1,10 +1,5 @@
-{ pkgs, ... }:
+{ ... }:
 
 {
-  packages = with pkgs; [
-    git
-    curl
-    jq
-    ripgrep
-  ];
+  imports = [ /workspace/common/main/devenv.nix ];
 }
