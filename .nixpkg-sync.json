@@ -1,0 +1,11 @@
+{
+  "kind": "npm",
+  "upstream": "@os-eco/seeds-cli",
+  "tag_regex": "^v[0-9]+\\.[0-9]+\\.[0-9]+$",
+  "tag_prefix": "v",
+  "version_file": "nix/package-manifest.json",
+  "version_jq": ".package.version",
+  "version_grep": "",
+  "pinned_paths": [],
+  "sync_script": ""
+}
