@@ -7,5 +7,6 @@
   "version_jq": ".package.version",
   "version_grep": "",
   "pinned_paths": [],
-  "sync_script": ""
+  "sync_script": "",
+  "bun_lock": true
 }
